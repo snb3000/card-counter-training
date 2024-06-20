@@ -1,15 +1,41 @@
-/* eslint-disable */
-import "bootstrap";
-import "./style.css";
+let runningCount = 0;
+let decksUsed = 1; // Start with one deck
 
-const generateRandomIcon = () => {
-  const icons = ["♠", "♣", "♥", "♦"];
-  return icons[Math.floor(Math.random() * icons.length)];
+document.getElementById("updateDecks").addEventListener("click", function() {
+  decksUsed = parseFloat(document.getElementById("deckCount").value) || 1;
+  updateCounts();
+});
+
+const cardValues = {
+  "2": 1,
+  "3": 1,
+  "4": 1,
+  "5": 1,
+  "6": 1,
+  "7": 0,
+  "8": 0,
+  "9": 0,
+  "10": -1,
+  J: -1,
+  Q: -1,
+  K: -1,
+  A: -1
 };
 
-const generateRandomNumber = () => {
+function updateCount(card) {
+  runningCount += cardValues[card];
+  updateCounts();
+}
+
+function updateCounts() {
+  document.getElementById("count").textContent =
+    "Running Count: " + runningCount;
+  document.getElementById("trueCount").textContent =
+    "True Count: " + (runningCount / decksUsed).toFixed(2);
+}
+
+function generateRandomNumber() {
   const numbers = [
-    "A",
     "2",
     "3",
     "4",
@@ -22,22 +48,26 @@ const generateRandomNumber = () => {
     "J",
     "Q",
     "K",
+    "A"
   ];
-  return numbers[Math.floor(Math.random() * numbers.length)];
-};
+  const indexNumbers = Math.floor(Math.random() * numbers.length);
+  const card = numbers[indexNumbers];
+  updateCount(card);
+  return card;
+}
 
-let generateNewCard = () => {
-  let randomIcon = generateRandomIcon();
-  let icons = document.querySelectorAll(".card-icon");
-  icons.forEach((icon) => {
-    icon.innerHTML = randomIcon;
+function generateNewCard() {
+  const number = generateRandomNumber();
+  const icons = document.getElementsByClassName("card-icon");
+  for (let icon of icons) {
+    icon.textContent = number.match(/[JQKA]/) ? number[0] : "♦"; // Simplified, usually you'd have a suit mapping
     icon.style.color =
-      randomIcon === "♦" || randomIcon === "♥" ? "red" : "black";
-  });
-
-  document.querySelector("#number").innerHTML = generateRandomNumber();
-};
+      icon.textContent === "♦" || icon.textContent === "♥" ? "red" : "black";
+  }
+  document.getElementById("number").textContent = number;
+}
 
 document
   .getElementById("generateButton")
   .addEventListener("click", generateNewCard);
+window.onload = generateNewCard;

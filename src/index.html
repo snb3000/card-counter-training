@@ -1,22 +1,45 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Random Card Generator</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-    <div class="container d-flex flex-column align-items-center justify-content-center vh-100">
-        <div id="card" class="card">
-            <div class="card-icon top-left"></div>
-            <div id="number" class="card-number"></div>
-            <div class="card-icon bottom-right"></div>
-        </div>
-        <button id="generateButton" class="btn btn-warning btn-lg mt-3">Generate New Card</button>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blackjack Card Counting Trainer</title>
+    <link
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div
+      class="container d-flex flex-column align-items-center justify-content-center vh-100"
+    >
+      <h2 class="mb-4">Blackjack Card Counting Trainer</h2>
+      <div id="card" class="card">
+        <div class="card-icon top-left"></div>
+        <div id="number" class="card-number display-4"></div>
+        <div class="card-icon bottom-right"></div>
+      </div>
+      <button id="generateButton" class="btn btn-primary mt-3">
+        Generate New Card
+      </button>
+      <div class="controls mt-4">
+        <input
+          type="number"
+          id="deckCount"
+          class="form-control"
+          placeholder="Enter number of decks"
+          value="1"
+          min="1"
+        />
+        <button id="updateDecks" class="btn btn-secondary mt-2">
+          Update Decks
+        </button>
+      </div>
+      <div id="count" class="alert alert-info mt-2">Running Count: 0</div>
+      <div id="trueCount" class="alert alert-success">True Count: 0</div>
     </div>
 
-    <script src="script.js"></script>
-</body>
+    <script src="app.js"></script>
+  </body>
 </html>
